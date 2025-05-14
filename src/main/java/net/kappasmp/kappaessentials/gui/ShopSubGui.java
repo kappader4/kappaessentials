@@ -14,6 +14,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -46,14 +47,24 @@ public class ShopSubGui extends SimpleGui {
             }
 
             Item mcItem = Registries.ITEM.get(itemId);
+            String name = item.customName != null && !item.customName.isEmpty()
+                    ? item.customName
+                    : "§f" + mcItem.getName().getString();
+
+            List<Text> lore = new ArrayList<>();
+            if (item.customLore != null && !item.customLore.isEmpty()) {
+                for (String line : item.customLore) {
+                    lore.add(Text.literal(line));
+                }
+            } else {
+                lore.add(Text.literal("§7Click to purchase"));
+                lore.add(Text.literal("§6" + (shop.currency.equalsIgnoreCase("tokens") ? "Token Cost" : "💰 Cost") + ": §e" + item.price));
+                lore.add(Text.literal("§6Amount: §e" + item.amount));
+            }
 
             GuiElementBuilder builder = new GuiElementBuilder(mcItem)
-                    .setName(Text.literal("§f" + mcItem.getName().getString()))
-                    .setLore(List.of(
-                            Text.literal("§7Click to purchase"),
-                            Text.literal("§6" + (shop.currency.equalsIgnoreCase("tokens") ? "Token Cost" : "💰 Cost") + ": §e" + item.price),
-                            Text.literal("§6Amount: §e" + item.amount)
-                    ))
+                    .setName(Text.literal(name))
+                    .setLore(lore)
                     .setCallback((index, type, action, gui) -> handlePurchase(player, shop.currency, item));
 
             this.setSlot(item.slot, builder);
@@ -71,7 +82,7 @@ public class ShopSubGui extends SimpleGui {
             return;
         }
 
-        String command = (item.customCommand != null && !item.customCommand.isEmpty())
+        String command = item.customCommand != null && !item.customCommand.isEmpty()
                 ? item.customCommand.replace("%player%", player.getName().getString())
                 : "give " + player.getName().getString() + " " + item.id + " " + item.amount;
 
