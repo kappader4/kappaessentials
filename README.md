@@ -57,7 +57,9 @@ KappaEssentials _(formerly **KappaEconomy**)_ is one of the only mods that bring
 - `shop.json`: Define all shop categories and items
 - `balances.json`: Stores each player's coin balance
 - `tokens.json`: Tracks player token balances
-- `item_prices.json`: Optional item pricing
+- `prices.json`: Optional item pricing
+- `homes.json`: Home Data stored here
+- `config.json`: Adds custumization to the mod
 
 ### Example `shop.json` format:
 ```json
