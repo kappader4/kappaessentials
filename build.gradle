@@ -1,0 +1,77 @@
+plugins {
+	id 'fabric-loom' version '1.10-SNAPSHOT'
+	id 'maven-publish'
+}
+
+setVersion(project.mod_version)
+setGroup(project.maven_group)
+
+base {
+	archivesName.set(project.archives_base_name)
+}
+
+repositories {
+	maven { url = "https://maven.fabricmc.net/" }
+	maven { url = "https://maven.nucleoid.xyz/" }
+	maven { url = "https://maven.pb4.eu" }
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+	// Fabric API modules
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-command-api-v2:${project.fabric_version}"
+
+	// Placeholder API
+	modImplementation "eu.pb4:placeholder-api:2.5.2+1.21.3"
+
+	// SGUI for GUI handling
+	modImplementation "eu.pb4:sgui:1.8.2+1.21.4"
+
+	//Luckperms
+	compileOnly 'net.luckperms:api:5.4'
+}
+
+processResources {
+	inputs.property("version", project.version)
+
+	filesMatching("fabric.mod.json") {
+		expand("version": project.version)
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 21
+}
+
+java {
+	withSourcesJar()
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
+}
+
+jar {
+	inputs.property("archivesName", project.base.archivesName.get())
+
+	from("LICENSE") {
+		rename { "${it}_${project.base.archivesName.get()}" }
+	}
+}
+
+publishing {
+	publications {
+		create("mavenJava", MavenPublication) {
+			artifactId = project.archives_base_name
+			from components.java
+		}
+	}
+
+	repositories {
+		// Add your maven repo if needed
+
+		mavenCentral()
+	}
+}

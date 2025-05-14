@@ -1,0 +1,18 @@
+{
+	"schemaVersion": 1,
+	"id": "kappaessentials",
+	"version": "1.1.5",
+	"name": "Kappa Essentials",
+	"description": "An all-in-one esential mod with Shop GUIs and multiple economies",
+	"authors": ["kappader4"],
+	"entrypoints": {
+		"main": [
+			"net.kappasmp.kappaessentials.KappaEssentials"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.14.21",
+		"fabric": "*",
+		"minecraft": ">=1.21.1 <1.22"
+	}
+}
