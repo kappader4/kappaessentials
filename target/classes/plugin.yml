@@ -1,0 +1,30 @@
+name: kappaessentials
+version: '1.1'
+main: net.kappasmp.kappaessentials.KappaEssentials
+api-version: '1.21'
+
+softdepend: ["PlaceholderAPI"]
+
+commands:
+  bal:
+    description: Check your current balance.
+  sell:
+    description: Sell items from your inventory for coins.
+  reload:
+    description: Reload the plugin's configuration and data files.
+  afk:
+    description: Toggle your AFK (Away From Keyboard) status.
+  tokens:
+    description: Check how many tokens you have.
+  tokentop:
+    description: View the top players ranked by token balance.
+  baltop:
+    description: View the top players ranked by coin balance.
+  pay:
+    description: Send coins to another player.
+  bounty:
+    description: View or place bounties on other players.
+  shop:
+    description: Open the in-game shop GUI.
+  rtpgui:
+    description: Opens the RTP GUI

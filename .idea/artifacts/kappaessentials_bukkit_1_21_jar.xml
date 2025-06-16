@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="kappaessentials-bukkit-1.21:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/kappaessentials_bukkit_1_21_jar</output-path>
+    <root id="archive" name="kappaessentials-bukkit-1.21.jar">
+      <element id="module-output" name="kappaessentials-bukkit-1.21" />
+    </root>
+  </artifact>
+</component>
