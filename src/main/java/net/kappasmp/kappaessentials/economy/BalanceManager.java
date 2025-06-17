@@ -1,8 +1,12 @@
 package net.kappasmp.kappaessentials.economy;
 
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -13,7 +17,7 @@ import java.util.stream.Collectors;
 public class BalanceManager {
 
     private static final Map<UUID, Integer> playerBalances = new HashMap<>();
-    private static final Map<String, Integer> itemPrices = new HashMap<>();
+    public static final Map<String, Integer> itemPrices = new HashMap<>();
 
     private static File balanceFile;
     private static File priceFile;
@@ -165,5 +169,26 @@ public class BalanceManager {
         priceConfig = YamlConfiguration.loadConfiguration(priceFile);
         loadBalances();
         loadItemPrices();
+    }
+    public static ItemStack addWorthLore(ItemStack item) {
+        if (item == null || item.getType() == Material.AIR) return item;
+
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) return item;
+
+        List<String> lore = meta.hasLore() ? new ArrayList<>(meta.getLore()) : new ArrayList<>();
+        lore.add(getItemWorthLore(item.getType()));
+
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        return item;
+    }
+    public static String getItemWorthLore(Material material) {
+        String key = "minecraft:" + material.name().toLowerCase();
+        if (itemPrices.containsKey(key)) {
+            return ChatColor.GREEN + "Worth: $" + itemPrices.get(key);
+        } else {
+            return ChatColor.RED + "Can't sell this item!";
+        }
     }
 }
