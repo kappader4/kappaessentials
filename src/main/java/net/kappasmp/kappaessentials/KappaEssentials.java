@@ -12,6 +12,7 @@ import net.kappasmp.kappaessentials.gui.ShopSubGuiListener;
 import net.kappasmp.kappaessentials.homes.HomeCommand;
 import net.kappasmp.kappaessentials.homes.HomeManager;
 import net.kappasmp.kappaessentials.*;
+import net.kappasmp.kappaessentials.listeners.InventoryWorthLoreListener;
 import net.kappasmp.kappaessentials.manager.ShopManager;
 import net.kappasmp.kappaessentials.placeholder.KappaPlaceholders;
 import net.kappasmp.kappaessentials.teleport.*;
