@@ -69,7 +69,7 @@ public class Kappaessentials implements ModInitializer {
 		System.out.println("[KappaEssentials] Initialized with config:");
 		System.out.println(ConfigManager.getHomeConfig()); // Debug print
 
-		ModUpdateChecker.checkForUpdates("1.0.0-1.21.5");
+		ModUpdateChecker.checkForUpdates("1.0.2-1.21.5");
 	}
 
 	private void registerCommands() {
@@ -100,7 +100,7 @@ public class Kappaessentials implements ModInitializer {
 			ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
 				ServerPlayerEntity player = handler.player;
 				if (player.hasPermissionLevel(2)) {
-					ModUpdateChecker.notifyIfOutdated(player, "1.1.5");
+					ModUpdateChecker.notifyIfOutdated(player, "1.0.1-1.21.5");
 				}
 			});
 		});

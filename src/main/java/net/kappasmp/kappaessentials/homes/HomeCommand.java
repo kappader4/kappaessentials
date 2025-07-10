@@ -88,6 +88,11 @@ public class HomeCommand {
                 .then(CommandManager.argument("homeName", StringArgumentType.string())
                         .executes(context -> {
                             ServerPlayerEntity player = context.getSource().getPlayer();
+                            if (player == null || player.getWorld() == null) {
+                                context.getSource().sendError(Text.literal("§cCannot set home: player or world is null."));
+                                return 1;
+                            }
+
                             String homeName = StringArgumentType.getString(context, "homeName");
 
                             if (HomeManager.getHome(player, homeName) != null) {
@@ -95,12 +100,18 @@ public class HomeCommand {
                                 return 1;
                             }
 
-                            RegistryKey<World> worldKey = player.getWorld().getRegistryKey();
-                            BlockPos pos = player.getBlockPos();
-                            HomeData home = new HomeData(pos, worldKey);
-                            HomeManager.setHome(player, homeName, home);
+                            try {
+                                RegistryKey<World> worldKey = player.getWorld().getRegistryKey();
+                                BlockPos pos = player.getBlockPos();
+                                HomeData home = new HomeData(pos, worldKey);
+                                HomeManager.setHome(player, homeName, home);
 
-                            player.sendMessage(Text.literal("§aHome '" + homeName + "' has been set."), false);
+                                player.sendMessage(Text.literal("§aHome '" + homeName + "' has been set."), false);
+                            } catch (Exception e) {
+                                e.printStackTrace(); // shows in log
+                                player.sendMessage(Text.literal("§cFailed to set home. Check logs for error."), false);
+                            }
+
                             return 1;
                         })
                 )

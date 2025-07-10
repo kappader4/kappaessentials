@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "kappaessentials",
-	"version": "1.0.0-1.21.5",
+	"version": "1.0.1-1.21.5",
 	"name": "kappaessentials",
 	"description": "This is an example description! Tell everyone what your mod is about!",
 	"authors": [
@@ -29,6 +29,6 @@
 		"fabric-api": "*"
 	},
 	"suggests": {
-		"another-mod": "*"
+		"luckperms": "*"
 	}
 }
