@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.kappasmp.kappaessentials.bounty.BountyCommand;
 import net.kappasmp.kappaessentials.bounty.BountyManager;
+import net.kappasmp.kappaessentials.bounty.BountyRewardHandler;
 import net.kappasmp.kappaessentials.command.*;
 import net.kappasmp.kappaessentials.config.ConfigManager;
 import net.kappasmp.kappaessentials.economy.BalCommand;
@@ -55,7 +56,7 @@ public class Kappaessentials implements ModInitializer {
 		log("Mod initialized.");
 
 		BountyManager.loadBounties();
-
+		BountyRewardHandler.register();
 		HomeManager.loadHomes();
 
 		ServerTickEvents.END_SERVER_TICK.register(HomeTeleportScheduler::tick);
@@ -65,7 +66,7 @@ public class Kappaessentials implements ModInitializer {
 		System.out.println("[KappaEssentials] Initialized with config:");
 		System.out.println(ConfigManager.getHomeConfig()); // Debug print
 
-		ModUpdateChecker.checkForUpdates("1.0.0-1.21.3");
+		ModUpdateChecker.checkForUpdates("1.0.2-1.21.3");
 	}
 
 	private void registerCommands() {
@@ -96,7 +97,7 @@ public class Kappaessentials implements ModInitializer {
 			ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
 				ServerPlayerEntity player = handler.player;
 				if (player.hasPermissionLevel(2)) {
-					ModUpdateChecker.notifyIfOutdated(player, "1.1.5");
+					ModUpdateChecker.notifyIfOutdated(player, "1.0.1-1.21.3");
 				}
 			});
 		});
