@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.kappasmp.kappaessentials.bounty.BountyCommand;
 import net.kappasmp.kappaessentials.bounty.BountyManager;
+import net.kappasmp.kappaessentials.bounty.BountyRewardHandler;
 import net.kappasmp.kappaessentials.command.*;
 import net.kappasmp.kappaessentials.config.ConfigManager;
 import net.kappasmp.kappaessentials.economy.BalCommand;
@@ -57,6 +58,8 @@ public class Kappaessentials implements ModInitializer {
 		BountyManager.loadBounties();
 
 		HomeManager.loadHomes();
+
+		BountyRewardHandler.register();
 
 		ServerTickEvents.END_SERVER_TICK.register(HomeTeleportScheduler::tick);
 
