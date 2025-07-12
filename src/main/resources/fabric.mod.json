@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "kappaessentials",
-	"version": "1.1.5",
+	"version": "1.1.6-1.21.4",
 	"name": "Kappa Essentials",
 	"description": "An all-in-one esential mod with Shop GUIs and multiple economies",
 	"authors": ["kappader4"],

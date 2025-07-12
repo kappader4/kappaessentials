@@ -175,6 +175,9 @@ public class HomeManager {
 
     private static boolean hasLuckPermsPermission(ServerPlayerEntity player, String permission) {
         try {
+            // Check if LuckPerms is on the classpath
+            Class.forName("net.luckperms.api.LuckPermsProvider");
+
             LuckPerms api = LuckPermsProvider.get();
             User user = api.getUserManager().getUser(player.getUuid());
             if (user == null) return false;
@@ -183,8 +186,16 @@ public class HomeManager {
             QueryOptions queryOptions = contextManager.getQueryOptions(user).orElse(null);
             if (queryOptions == null) return false;
 
-            return user.getCachedData().getPermissionData(queryOptions).checkPermission(permission).asBoolean();
+            return user.getCachedData()
+                    .getPermissionData(queryOptions)
+                    .checkPermission(permission)
+                    .asBoolean();
+
+        } catch (ClassNotFoundException | NoClassDefFoundError e) {
+            // LuckPerms not installed
+            return false;
         } catch (IllegalStateException e) {
+            // LuckPerms present but not initialized
             return false;
         }
     }

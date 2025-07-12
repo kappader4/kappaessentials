@@ -5,6 +5,7 @@ import net.kappasmp.kappaessentials.config.ConfigManager;
 import net.kappasmp.kappaessentials.economy.BalanceManager;
 import net.kappasmp.kappaessentials.manager.ShopManager;
 import net.kappasmp.kappaessentials.homes.HomeManager;
+import net.kappasmp.kappaessentials.token.TokenManager;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
@@ -27,6 +28,7 @@ public class ReloadCommand {
                                 BalanceManager.loadItemPrices();
                                 ShopManager.loadShop();
                                 HomeManager.loadHomes();
+                                TokenManager.load();
 
                                 int categories = ShopManager.getMainMenu().size();
                                 int shops = ShopManager.getShopCount();

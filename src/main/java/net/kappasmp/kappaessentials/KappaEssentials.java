@@ -4,9 +4,11 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.kappasmp.kappaessentials.bounty.BountyCommand;
 import net.kappasmp.kappaessentials.bounty.BountyManager;
+import net.kappasmp.kappaessentials.bounty.BountyRewardHandler;
 import net.kappasmp.kappaessentials.command.*;
 import net.kappasmp.kappaessentials.config.ConfigManager;
 import net.kappasmp.kappaessentials.economy.BalCommand;
@@ -22,10 +24,12 @@ import net.kappasmp.kappaessentials.homes.HomeManager;
 import net.kappasmp.kappaessentials.token.TokenTopCommand;
 import net.kappasmp.kappaessentials.token.TokensCommand;
 import net.kappasmp.kappaessentials.update.ModUpdateChecker;
+import net.minecraft.block.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import eu.pb4.placeholders.api.Placeholders;
 import eu.pb4.placeholders.api.PlaceholderResult;
@@ -35,6 +39,7 @@ import java.nio.file.Path;
 import java.util.UUID;
 
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.util.math.BlockPos;
 
 public class KappaEssentials implements ModInitializer {
 
@@ -45,27 +50,20 @@ public class KappaEssentials implements ModInitializer {
 	public void onInitialize() {
 		// Register all custom commands at once
 		registerCommands();
-
 		// Load economy data on server start
 		ServerLifecycleEvents.SERVER_STARTED.register(this::onServerStart);
-
 		// Save economy data on server stop
 		ServerLifecycleEvents.SERVER_STOPPING.register(this::onServerStop);
-
+		BountyRewardHandler.register();
 		log("Mod initialized.");
-
 		BountyManager.loadBounties();
-
+		BountyRewardHandler.register();
 		HomeManager.loadHomes();
-
 		ServerTickEvents.END_SERVER_TICK.register(HomeTeleportScheduler::tick);
-
 		ConfigManager.init(FabricLoader.getInstance().getConfigDir());
-
 		System.out.println("[KappaEssentials] Initialized with config:");
 		System.out.println(ConfigManager.getHomeConfig()); // Debug print
-
-		ModUpdateChecker.checkForUpdates("1.1.4");
+		ModUpdateChecker.checkForUpdates("1.1.7-1.21.4");
 	}
 
 	private void registerCommands() {
@@ -96,7 +94,7 @@ public class KappaEssentials implements ModInitializer {
 			ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
 				ServerPlayerEntity player = handler.player;
 				if (player.hasPermissionLevel(2)) {
-					ModUpdateChecker.notifyIfOutdated(player, "1.1.5");
+					ModUpdateChecker.notifyIfOutdated(player, "1.1.6-1.21.4");
 				}
 			});
 		});
