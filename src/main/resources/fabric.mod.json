@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "kappaessentials",
-	"version": "1.0.0-1.21.2",
+	"version": "1.0.1-1.21.2",
 	"name": "kappaessentials",
 	"description": "This is an example description! Tell everyone what your mod is about!",
 	"authors": [
@@ -13,7 +13,7 @@
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/kappaessentials/icon.png",
-	"environment": "*",
+	"environment": "server",
 	"entrypoints": {
 		"main": [
 			"net.kappasmp.kappaessentials.Kappaessentials"
