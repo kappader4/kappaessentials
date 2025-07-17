@@ -1,0 +1,22 @@
+name: kappaessentials-paper-1.21
+version: '1.0-paper-1.21'
+main: net.kappasmp.kappaessentials.KappaEssentials
+api-version: '1.21'
+commands:
+  bal:
+  pay:
+  sell:
+  reloadkappa:
+  afk:
+  tokens:
+  tokentop:
+  baltop:
+  bounty:
+  tpa:
+  tpahere:
+  tpaccept:
+  tpdeny:
+  sethome:
+  home:
+  delhome:
+  shop:

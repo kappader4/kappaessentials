@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="kappaessentials-1.21-paper:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/kappaessentials_1_21_paper_jar</output-path>
+    <root id="archive" name="kappaessentials-1.21-paper.jar">
+      <element id="module-output" name="kappaessentials-1.21-paper" />
+    </root>
+  </artifact>
+</component>
