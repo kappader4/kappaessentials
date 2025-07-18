@@ -1,5 +1,6 @@
 package net.kappasmp.kappaessentials.bounty;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
@@ -11,18 +12,24 @@ public class BountyManager {
 
     private static final Map<UUID, BountyData> bounties = new HashMap<>();
     private static File bountyFile;
-    private static YamlConfiguration bountyConfig;
+    public static YamlConfiguration bountyConfig;
 
     public static void initialize(Plugin plugin) {
         File dataFolder = new File(plugin.getDataFolder(), "bounties");
         if (!dataFolder.exists()) {
-            dataFolder.mkdirs();
+            boolean created = dataFolder.mkdirs();
+            if (!created) {
+                plugin.getLogger().warning("Failed to create bounties folder.");
+            }
         }
 
         bountyFile = new File(dataFolder, "bounties.yml");
         if (!bountyFile.exists()) {
             try {
-                bountyFile.createNewFile();
+                boolean created = bountyFile.createNewFile();
+                if (!created) {
+                    plugin.getLogger().warning("Could not create bounties.yml.");
+                }
             } catch (IOException e) {
                 plugin.getLogger().warning("Could not create bounty file: " + e.getMessage());
             }
@@ -56,10 +63,16 @@ public class BountyManager {
 
     public static void removeBounty(UUID target) {
         bounties.remove(target);
+        bountyConfig.set(target.toString(), null);
         saveBounties();
     }
 
     public static void saveBounties() {
+        if (bountyConfig == null || bountyFile == null) {
+            Bukkit.getLogger().severe("[KappaEssentials] Cannot save bounties: config not initialized.");
+            return;
+        }
+
         for (Map.Entry<UUID, BountyData> entry : bounties.entrySet()) {
             String uuid = entry.getKey().toString();
             BountyData data = entry.getValue();
@@ -70,21 +83,27 @@ public class BountyManager {
         try {
             bountyConfig.save(bountyFile);
         } catch (IOException e) {
-            System.err.println("Failed to save bounties: " + e.getMessage());
+            Bukkit.getLogger().severe("Failed to save bounties.yml: " + e.getMessage());
         }
     }
 
     public static void loadBounties() {
         bounties.clear();
+
+        if (bountyConfig == null) {
+            Bukkit.getLogger().severe("[KappaEssentials] bountyConfig is null! Skipping bounty loading.");
+            return;
+        }
+
         for (String key : bountyConfig.getKeys(false)) {
             try {
                 UUID uuid = UUID.fromString(key);
                 int amount = bountyConfig.getInt(key + ".amount");
                 String setterStr = bountyConfig.getString(key + ".setter");
-                UUID setter = setterStr != null ? UUID.fromString(setterStr) : null;
+                UUID setter = (setterStr != null && !setterStr.isEmpty()) ? UUID.fromString(setterStr) : null;
                 bounties.put(uuid, new BountyData(amount, setter));
             } catch (Exception e) {
-                System.err.println("Failed to load bounty for key: " + key + " (" + e.getMessage() + ")");
+                Bukkit.getLogger().warning("[KappaEssentials] Failed to load bounty for key: " + key + " (" + e.getMessage() + ")");
             }
         }
     }

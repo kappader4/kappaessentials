@@ -1,4 +1,4 @@
-name: kappaessentials-paper-1.21
+name: kappaessentials
 version: '1.0-paper-1.21'
 main: net.kappasmp.kappaessentials.KappaEssentials
 api-version: '1.21'
@@ -6,7 +6,7 @@ commands:
   bal:
   pay:
   sell:
-  reloadkappa:
+  reload:
   afk:
   tokens:
   tokentop:

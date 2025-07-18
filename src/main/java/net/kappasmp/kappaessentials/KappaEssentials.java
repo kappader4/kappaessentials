@@ -45,7 +45,7 @@ public final class KappaEssentials extends JavaPlugin {
         registerCommand("bal", new BalCommand());
         registerCommand("pay", new PayCommand());
         registerCommand("sell", new SellCommand());
-        getCommand("kappaessentials:reload").setExecutor(new ReloadCommand(this));
+        getCommand("reload").setExecutor(new ReloadCommand(this));
         getCommand("afk").setExecutor(new AfkCommand(this));
         registerCommand("tokens", new TokensCommand());
         registerCommand("tokentop", new TokenTopCommand());
