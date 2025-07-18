@@ -1,0 +1,22 @@
+name: kappaessentials
+version: '1.1-SNAPSHOT'
+main: net.kappasmp.kappaessentials.KappaEssentials
+api-version: '1.21'
+commands:
+  bal:
+  pay:
+  sell:
+  reload:
+  afk:
+  tokens:
+  tokentop:
+  baltop:
+  bounty:
+  tpa:
+  tpahere:
+  tpaccept:
+  tpdeny:
+  sethome:
+  home:
+  delhome:
+  shop:
