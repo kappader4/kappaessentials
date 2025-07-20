@@ -15,27 +15,34 @@ public class BountyManager {
     public static YamlConfiguration bountyConfig;
 
     public static void initialize(Plugin plugin) {
-        File dataFolder = new File(plugin.getDataFolder(), "bounties");
-        if (!dataFolder.exists()) {
-            boolean created = dataFolder.mkdirs();
-            if (!created) {
-                plugin.getLogger().warning("Failed to create bounties folder.");
-            }
+        File dataFolder = plugin.getDataFolder();
+        if (!dataFolder.exists() && !dataFolder.mkdirs()) {
+            plugin.getLogger().severe("Failed to create plugin data folder.");
+            return;
         }
 
         bountyFile = new File(dataFolder, "bounties.yml");
+
         if (!bountyFile.exists()) {
             try {
-                boolean created = bountyFile.createNewFile();
-                if (!created) {
+                if (bountyFile.createNewFile()) {
+                    plugin.getLogger().info("Created bounties.yml.");
+                } else {
                     plugin.getLogger().warning("Could not create bounties.yml.");
                 }
             } catch (IOException e) {
-                plugin.getLogger().warning("Could not create bounty file: " + e.getMessage());
+                plugin.getLogger().severe("Error creating bounties.yml: " + e.getMessage());
+                return;
             }
         }
 
         bountyConfig = YamlConfiguration.loadConfiguration(bountyFile);
+
+        if (bountyConfig == null) {
+            plugin.getLogger().severe("bountyConfig is null! Skipping bounty loading.");
+            return;
+        }
+
         loadBounties();
     }
 

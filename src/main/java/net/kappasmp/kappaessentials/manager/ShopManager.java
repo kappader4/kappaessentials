@@ -17,9 +17,8 @@ public class ShopManager {
     private static ShopConfig shopConfig = new ShopConfig();
     private static File shopFile;
 
-    public static void init(File configFolder) {
-        File pluginFolder = new File(configFolder, "KappaEssentials");
-        pluginFolder.mkdirs();
+    public static void init(File pluginFolder) {
+        if (!pluginFolder.exists()) pluginFolder.mkdirs();
 
         shopFile = new File(pluginFolder, "shop.yml");
         if (!shopFile.exists()) {
@@ -191,43 +190,43 @@ shops:
         id: "minecraft:totem_of_undying"
         price: 1250
         customName: "§6Totem of Undying"
-        customCommand: "/give %player% minecraft:totem_of_undying 1"
+        customCommand: "give %player% minecraft:totem_of_undying 1"
         amount: 1
       - slot: 11
         id: "minecraft:end_crystal"
         price: 900
         customName: "§6End Crystal"
-        customCommand: "/give %player% minecraft:end_crystal 16"
+        customCommand: "give %player% minecraft:end_crystal 16"
         amount: 16
       - slot: 12
         id: "minecraft:obsidian"
         price: 550
         customName: "§6Obsidian"
-        customCommand: "/give %player% minecraft:obsidian 64"
+        customCommand: "give %player% minecraft:obsidian 64"
         amount: 64
       - slot: 13
         id: "minecraft:respawn_anchor"
         price: 1100
         customName: "§6Respawn Anchor"
-        customCommand: "/give %player% minecraft:respawn_anchor 4"
+        customCommand: "give %player% minecraft:respawn_anchor 4"
         amount: 4
       - slot: 14
         id: "minecraft:glowstone"
         price: 900
         customName: "§6Glowstone"
-        customCommand: "/give %player% minecraft:glowstone 32"
+        customCommand: "give %player% minecraft:glowstone 32"
         amount: 32
       - slot: 15
         id: "minecraft:golden_apple"
         price: 900
         customName: "§6Golden Apple"
-        customCommand: "/give %player% minecraft:golden_apple 8"
+        customCommand: "give %player% minecraft:golden_apple 8"
         amount: 8
       - slot: 16
         id: "minecraft:ender_pearl"
         price: 200
         customName: "§6Ender Pearl"
-        customCommand: "/give %player% minecraft:ender_pearl 16"
+        customCommand: "give %player% minecraft:ender_pearl 16"
         amount: 16
 
   - id: "food"
@@ -238,31 +237,31 @@ shops:
         id: "minecraft:cooked_beef"
         price: 100
         customName: "§6Cooked Beef"
-        customCommand: "/give %player% minecraft:cooked_beef 32"
+        customCommand: "give %player% minecraft:cooked_beef 32"
         amount: 32
       - slot: 12
         id: "minecraft:cooked_chicken"
         price: 900
         customName: "§6Cooked Chicken"
-        customCommand: "/give %player% minecraft:cooked_chicken 16"
+        customCommand: "give %player% minecraft:cooked_chicken 16"
         amount: 16
       - slot: 13
         id: "minecraft:golden_apple"
         price: 900
         customName: "§6Golden Apple"
-        customCommand: "/give %player% minecraft:golden_apple 8"
+        customCommand: "give %player% minecraft:golden_apple 8"
         amount: 8
       - slot: 14
         id: "minecraft:golden_carrot"
         price: 50
         customName: "§6Golden Carrot"
-        customCommand: "/give %player% minecraft:golden_carrot 4"
+        customCommand: "give %player% minecraft:golden_carrot 4"
         amount: 4
       - slot: 15
         id: "minecraft:cooked_porkchop"
         price: 100
         customName: "§6Cooked Porkchop"
-        customCommand: "/give %player% minecraft:cooked_porkchop 32"
+        customCommand: "give %player% minecraft:cooked_porkchop 32"
         amount: 32
 
   - id: "end"
@@ -273,31 +272,31 @@ shops:
         id: "minecraft:ender_pearl"
         price: 200
         customName: "§6Ender Pearl"
-        customCommand: "/give %player% minecraft:ender_pearl 16"
+        customCommand: "give %player% minecraft:ender_pearl 16"
         amount: 16
       - slot: 12
         id: "minecraft:ender_chest"
         price: 900
         customName: "§6Ender Chest"
-        customCommand: "/give %player% minecraft:ender_chest 16"
+        customCommand: "give %player% minecraft:ender_chest 16"
         amount: 16
       - slot: 13
         id: "minecraft:shulker_box"
         price: 750
         customName: "§6Shulker Box"
-        customCommand: "/give %player% minecraft:shulker_box 1"
+        customCommand: "give %player% minecraft:shulker_box 1"
         amount: 1
       - slot: 14
         id: "minecraft:firework_rocket"
         price: 1000
         customName: "§6Firework Rocket"
-        customCommand: "/give %player% minecraft:firework_rocket 32"
+        customCommand: "give %player% minecraft:firework_rocket 32"
         amount: 32
       - slot: 15
         id: "minecraft:elytra"
         price: 300000
         customName: "§6Elytra"
-        customCommand: "/give %player% minecraft:elytra 1"
+        customCommand: "give %player% minecraft:elytra 1"
         amount: 1
 
   - id: "nether"
@@ -308,31 +307,31 @@ shops:
         id: "minecraft:netherrack"
         price: 200
         customName: "§6Netherrack"
-        customCommand: "/give %player% minecraft:netherrack 32"
+        customCommand: "give %player% minecraft:netherrack 32"
         amount: 32
       - slot: 12
         id: "minecraft:glowstone"
         price: 900
         customName: "§6Glowstone"
-        customCommand: "/give %player% minecraft:glowstone 32"
+        customCommand: "give %player% minecraft:glowstone 32"
         amount: 32
       - slot: 13
         id: "minecraft:quartz"
         price: 750
         customName: "§6Quartz"
-        customCommand: "/give %player% minecraft:quartz 32"
+        customCommand: "give %player% minecraft:quartz 32"
         amount: 32
       - slot: 14
         id: "minecraft:magma_cream"
         price: 1000
         customName: "§6Magma Cream"
-        customCommand: "/give %player% minecraft:magma_cream 1"
+        customCommand: "give %player% minecraft:magma_cream 1"
         amount: 1
       - slot: 15
         id: "minecraft:magma_block"
         price: 550
         customName: "§6Magma Block"
-        customCommand: "/give %player% minecraft:magma_block 32"
+        customCommand: "give %player% minecraft:magma_block 32"
         amount: 32
 
   - id: "token"
@@ -343,37 +342,37 @@ shops:
         id: "minecraft:spawner"
         price: 200
         customName: "§5Creeper Spawner"
-        customCommand: "/give %player% minecraft:spawner 1"
+        customCommand: "give %player% minecraft:spawner 1"
         amount: 1
       - slot: 12
         id: "minecraft:spawner"
         price: 150
         customName: "§5Zombie Spawner"
-        customCommand: "/give %player% minecraft:spawner 1"
+        customCommand: "give %player% minecraft:spawner 1"
         amount: 1
       - slot: 13
         id: "minecraft:spawner"
         price: 400
         customName: "§5Skeleton Spawner"
-        customCommand: "/give %player% minecraft:spawner 1"
+        customCommand: "give %player% minecraft:spawner 1"
         amount: 1
       - slot: 14
         id: "minecraft:spawner"
         price: 50
         customName: "§5Cow Spawner"
-        customCommand: "/give %player% minecraft:spawner 1"
+        customCommand: "give %player% minecraft:spawner 1"
         amount: 1
       - slot: 15
         id: "minecraft:spawner"
         price: 1250
         customName: "§5Iron Golem Spawner"
-        customCommand: "/give %player% minecraft:spawner 1"
+        customCommand: "give %player% minecraft:spawner 1"
         amount: 1
       - slot: 4
         id: "minecraft:netherite_sword"
         price: 2000
         customName: "§5ᴛʜᴇ ᴢᴇɴɪᴛʜ"
-        customCommand: "/give %player% minecraft:netherite_sword 1"
+        customCommand: "give %player% minecraft:netherite_sword 1"
         amount: 1
         customLore:
           - "§7Click to purchase"
@@ -392,7 +391,7 @@ shops:
         id: "minecraft:netherite_axe"
         price: 1000
         customName: "§6ʟᴇɢᴇɴᴅᴀʀʏ ᴀхᴇ"
-        customCommand: "/give %player% minecraft:netherite_axe 1"
+        customCommand: "give %player% minecraft:netherite_axe 1"
         amount: 1
         customLore:
           - "§7Click to purchase"
@@ -410,7 +409,7 @@ shops:
         id: "minecraft:netherite_pickaxe"
         price: 1000
         customName: "§6ʟᴇɢᴇɴᴅᴀʀʏ ᴘɪᴄᴋᴀхᴇ"
-        customCommand: "/give %player% minecraft:netherite_pickaxe 1"
+        customCommand: "give %player% minecraft:netherite_pickaxe 1"
         amount: 1
         customLore:
           - "§7Click to purchase"

@@ -17,7 +17,7 @@ import java.util.*;
 public class BountyGui {
 
     public static void open(Player player) {
-        Inventory gui = Bukkit.createInventory(null, 54, ChatColor.DARK_GRAY + "> Bounties");
+        Inventory gui = Bukkit.createInventory(null, 54, ChatColor.DARK_GRAY + "ʙᴏᴜɴᴛɪᴇѕ");
 
         Set<UUID> bountyTargets = BountyManager.getAllBountiedPlayers();
         if (bountyTargets.isEmpty()) {
@@ -54,10 +54,17 @@ public class BountyGui {
     public static void handleClick(InventoryClickEvent event) {
         HumanEntity clicker = event.getWhoClicked();
         if (!(clicker instanceof Player player)) return;
-
         if (!event.getView().getTitle().contains("Bounties")) return;
 
-        event.setCancelled(true); // prevent item moving
+        // Cancel all interactions in this GUI
+        if (event.getClickedInventory() == null) return;
+
+        boolean isTop = event.getClickedInventory() == event.getView().getTopInventory();
+        boolean isShift = event.isShiftClick();
+
+        if (isTop || isShift) {
+            event.setCancelled(true);
+        }
 
         ItemStack clicked = event.getCurrentItem();
         if (clicked == null || clicked.getType() == Material.AIR) return;

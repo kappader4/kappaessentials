@@ -8,20 +8,24 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ShopGui {
+public class ShopGui implements Listener {
 
     private static final Map<Integer, String> slotToShopId = new HashMap<>();
+    private static final String GUI_TITLE = "§8> ѕʜᴏᴘ";
 
     public static void open(Player player) {
-        // Deprecated, but still works — replace with Component.text("§8> ѕʜᴏᴘ") if using Adventure API
-        Inventory gui = Bukkit.createInventory(null, 27, "§8> ѕʜᴏᴘ");
+        Inventory gui = Bukkit.createInventory(null, 27, GUI_TITLE);
 
         for (ShopCategory category : ShopManager.getMainMenu()) {
             NamespacedKey key = NamespacedKey.fromString(category.icon);
@@ -43,17 +47,38 @@ public class ShopGui {
         player.openInventory(gui);
     }
 
-    public static void handleClick(InventoryClickEvent event) {
+    @EventHandler
+    public void onClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) return;
-        // Deprecated method: still usable; optional to switch to `Component` handling
-        if (!event.getView().getTitle().contains("ѕʜᴏᴘ")) return;
+        if (!event.getView().getTitle().equals(GUI_TITLE)) return;
 
-        event.setCancelled(true);
+        Inventory clickedInventory = event.getClickedInventory();
+        if (clickedInventory == null) return;
 
-        int slot = event.getSlot();
+        // Cancel clicks in top inventory or shift-clicks
+        if (clickedInventory == event.getView().getTopInventory() || event.isShiftClick()) {
+            event.setCancelled(true);
+        }
+
+        int slot = event.getRawSlot();
         if (!slotToShopId.containsKey(slot)) return;
 
+        // Open sub-shop
         String shopId = slotToShopId.get(slot);
         ShopSubGui.open(player, shopId);
+    }
+
+    @EventHandler
+    public void onDrag(InventoryDragEvent event) {
+        if (!(event.getWhoClicked() instanceof Player)) return;
+        if (!event.getView().getTitle().equals(GUI_TITLE)) return;
+
+        int topSize = event.getView().getTopInventory().getSize();
+        for (int slot : event.getRawSlots()) {
+            if (slot < topSize) {
+                event.setCancelled(true);
+                return;
+            }
+        }
     }
 }

@@ -5,6 +5,7 @@ import net.kappasmp.kappaessentials.economy.BalanceManager;
 import net.kappasmp.kappaessentials.homes.HomeManager;
 import net.kappasmp.kappaessentials.manager.ShopManager;
 import net.kappasmp.kappaessentials.token.TokenManager;
+import net.kappasmp.kappaessentials.auction.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

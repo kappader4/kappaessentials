@@ -79,11 +79,16 @@ public class AfkCommand implements CommandExecutor {
         return true;
     }
 
-    private void cancelAfk(UUID uuid) {
+    public boolean isAfk(UUID uuid) {
+        return afkTasks.containsKey(uuid);
+    }
+
+    public void cancelAfk(UUID uuid) {
         Integer taskId = afkTasks.remove(uuid);
         if (taskId != null) {
             Bukkit.getScheduler().cancelTask(taskId);
         }
         afkStartLocations.remove(uuid);
     }
+
 }

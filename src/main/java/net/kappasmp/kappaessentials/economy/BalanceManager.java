@@ -23,10 +23,10 @@ public class BalanceManager {
 
     private static Plugin plugin;
 
-    public static void init(Plugin owningPlugin, java.nio.file.Path configDir) {
+    public static void init(Plugin owningPlugin) {
         plugin = owningPlugin;
-        File dataDir = configDir.resolve("KappaEssentials").toFile();
 
+        File dataDir = plugin.getDataFolder(); // no more extra folder
         if (!dataDir.exists()) dataDir.mkdirs();
 
         balanceFile = new File(dataDir, "balance.yml");

@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class TokenManager {
     private static final Map<UUID, Integer> tokenMap = new HashMap<>();
-    private static final File folder = new File("plugins/KappaEssentials");
+    private static final File folder = new File("plugins/kappaessentials");
     private static final File file = new File(folder, "tokens.yml");
 
     public static int getTokens(UUID uuid) {

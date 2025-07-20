@@ -26,7 +26,7 @@ public class HomeManager {
         }
     }
 
-    private static final File FILE = new File("plugins/KappaEssentials/homes.yml");
+    private static final File FILE = new File("plugins/kappaessentials/homes.yml");
     private static final Map<UUID, Map<String, HomeData>> homes = new HashMap<>();
     private static final Map<UUID, Long> lastTeleportTime = new HashMap<>();
 
